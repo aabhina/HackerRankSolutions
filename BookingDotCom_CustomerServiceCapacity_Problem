@@ -1,0 +1,61 @@
+/*
+HackerRank Customer Service Capacity
+ 
+Problem: Determine how many people need to hire
+  
+Input specs:
+- first line contains the current number of customer
+  service executives
+- second line contains a number of records in data set
+- next linkes contains a pair of timestamps representing
+  a start of call and end of call
+  
+Input demo:     
+1
+3
+1481222000 1481222020
+1481222000 1481222040
+1481222030 1481222035
+ 
+Output demo:
+Expected result (number of additional customer service
+executives):           
+1
+*/
+
+
+  //Booking.com Hacker Rank Problem
+  private static int numbersOfAgentsToAdd(int startingNumberOfAgents, int[][] callTimes) {
+	  Map<Integer, Integer> map = new TreeMap<>();
+	  
+	  for(int i = 0; i < callTimes.length; i++) {
+		  int t1 = callTimes[i][0];
+		  int t2 = callTimes[i][1];
+		  
+		  if(!map.containsKey(t1)) {
+			  map.put(t1, 1);
+		  }
+		  else {
+			  map.put(t1, map.get(t1) + 1);
+		  }
+		  
+		  if(!map.containsKey(t2)) {
+			  map.put(t2, -1);
+		  }
+		  else {
+			  map.put(t2, map.get(t2) - 1);
+		  }
+	  }
+		  
+	  	  int max = 0;
+		  int num = 0;
+		  for(Integer e : map.values()) {
+			  num += e;
+			  if(num > max) {
+				  max = num;
+			  }
+		  }
+	  
+	  
+	  return (max  - startingNumberOfAgents);
+  }
